@@ -1,0 +1,40 @@
+{
+  "name": "javascript30-day-four",
+  "version": "1.0.0",
+  "description": "A javascript array functions training",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mav1283/javascript30-day-four.git"
+  },
+  "keywords": [
+    "Vanilla",
+    "Javascript",
+    "Arrays"
+  ],
+  "author": "Dani Paolo S. Dullano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mav1283/javascript30-day-four/issues"
+  },
+  "homepage": "https://github.com/mav1283/javascript30-day-four#readme",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-loader": "^8.0.4",
+    "css-loader": "^1.0.0",
+    "file-loader": "^2.0.0",
+    "mini-css-extract-plugin": "^0.4.4",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11"
+  }
+}
