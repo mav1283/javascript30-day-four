@@ -7,6 +7,62 @@
     <title>Array Cardio Day 1</title>
 </head>
 <body>
+    <div class="app">
+        <header>
+            <h1>Array Cardio Training 1</h1>
+        </header>    
+        <section class="data">
+            <div class="datacontent">
+                <h3>Inventors</h3>
+                <ul id="inventors" class="list"></ul>
+            </div>
+            <div class="datacontent">
+                <h3>People</h3>
+                <ul id="people" class="list"></ul>
+            </div>
+            <div class="datacontent">
+                <h3>Paris De Boulevards</h3>
+                <ul id="deboulevards" class="list"></ul>    
+            </div>
+        </section>
+        <section class="queries">
+            <div class="query">
+                <div class="foot-title"><h4>Inventors</h4></div>
+                <div class="query-content">
+                    <label for="">Sort by:</label>
+                    <select name="selectScientist" size="4" class="selectinput">
+                        <option value="age">Age</option>
+                        <option value="name">Name</option>
+                        <option value="born">Born</option>
+                        <option value="died">died</option>
+                    </select>
+                    <label for="">Filter by:</label>
+                </div>
+            </div>
+            <div class="query">
+                <div class="foot-title"><h4>People</h4></div>
+                <div class="query-content">
+                    <label for="">Sort by:</label>
+                    <select name="selectPeople" size="4" class="selectinput">
+                        <option value="volvo">Firstname</option>
+                        <option value="saab">Lastname</option>
+                        <option value="fiat">Fullname</option>
+                    </select>
+                    <label for="">Filter by:</label>
+                </div>
+            </div>
+            <div class="query">
+                <div class="foot-title"><h4>Paris De Boulevards</h4></div>
+                <div class="query-content">
+                    <label for="">Sort by:</label>
+                    <select name="selectBoulevards" size="4" class="selectinput">
+                        <option value="volvo">Name</option>
+                    </select>
+                    <label for="">Filter by:</label>
+                </div>
+            </div>
+        </section>
+    </div>
     <script src="./dist/main.js"></script>
 </body>
 </html>
