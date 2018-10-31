@@ -11,126 +11,60 @@ import axios from 'axios';
 //     { first: 'Max', last: 'Planck', year: 1858, passed: 1947 }
 // ]
 
-const people = [
-    'Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddos, Mick',
-    'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Helaire',
-    'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas',
-    'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving',
-    'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin',
-    'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank',
-    'Birrell, Agustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'
-]
+// const people = [
+//     'Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddos, Mick',
+//     'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Helaire',
+//     'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas',
+//     'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving',
+//     'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin',
+//     'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank',
+//     'Birrell, Agustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'
+// ]
 
-//const inventors = [];
+
 const inventorList = document.getElementById('inventors');
 const peopleList = document.getElementById('people');
 const boulevardList = document.getElementById('deboulevards');
 const selectInputs = document.querySelectorAll('.selectinput');
-// const selectScientist = document.querySelector('select[name="selectScientist"]');
-// const selectPeople = document.querySelector('select[name="selectPeople"]');
+const selectInventors = document.querySelector('select[name="selectInventors"]');
+const selectPeople = document.querySelector('select[name="selectPeople"]');
+const textboxFilter = document.querySelector('.textinput');
+
+
 
 // document.addEventListener('DOMContentLoaded',function() {
-    selectInputs.forEach((sinput)=>{
-        sinput.onchange = handleSelect;
-    });
+//     selectInputs.forEach((sinput)=>{
+//         sinput.onchange = handleSelect;
+//     });
 // },false);
-// document.addEventListener('DOMContentLoaded',function(){
-//     selectScientist.onchange = handleSelect;
-//     selectPeople.onchange = handleSelect;
-// }, false);
+// function handleSelect(){
+//     console.log(this.value);
+// }
 
+let inventors;
+let people;
+let boulevards;
 
-function handleSelect(){
-    
-    console.log(this.value);
-
-}
-
+window.addEventListener('load',render);
 
 
 function render(){
-    
-    // inventors.forEach((inventor)=>{
-    //     const li = document.createElement('li');
-    //     const lihead = document.createElement('h5');
-    //     const libody = document.createElement('p');
-    //     const age = inventor.passed - inventor.year;
-    //     lihead.innerHTML = `${inventor.first} ${inventor.last}, ${age}`;
-    //     libody.innerHTML = `${inventor.year} - ${inventor.passed}`;
-    //     li.appendChild(lihead);
-    //     li.appendChild(libody);
-    //     inventorList.appendChild(li);
-    // });
-
-    // people.forEach((name)=>{
-    //     const li = document.createElement('li');
-    //     const lihead = document.createElement('h5');
-    //     const nameArr = name.split(', ');
-    //     const fullname = `${nameArr[1]} ${nameArr[0]}`;
-    //     lihead.innerHTML = fullname;
-    //     li.appendChild(lihead);
-    //     peopleList.appendChild(li);
-    // });
-
-    // axios.get('https://res.cloudinary.com/dzsmdyknz/raw/upload/v1540349778/GitHub/Javascript30/day-4/apis/inventors.json')
-    //   .then(function (response) {
-    //       const inventors = response.data.inventors;
-    //       console.log(inventors);
-    //       inventors.map((inventor)=>{
-    //             const li = document.createElement('li');
-    //             const lihead = document.createElement('h5');
-    //             const libody = document.createElement('p');
-    //             const age = inventor.passed - inventor.year;
-    //             lihead.innerHTML = `${inventor.first} ${inventor.last}, ${age}`;
-    //             libody.innerHTML = `${inventor.year} - ${inventor.passed}`;
-    //             li.appendChild(lihead);
-    //             li.appendChild(libody);
-    //             inventorList.appendChild(li);
-    //         });
-       
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   })
-    //   .then(function () {
-    //     // always executed
-    //   });
-
-    const xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
+    /* Load Defaults */
+    const inventorsHttp = new XMLHttpRequest();
+    inventorsHttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            const inventors = JSON.parse(this.responseText);
-            console.log(inventors.inventors);
-            inventors.inventors.map((inventor)=>{
-                const li = document.createElement('li');
-                const lihead = document.createElement('h5');
-                const libody = document.createElement('p');
-                const age = inventor.passed - inventor.year;
-                lihead.innerHTML = `${inventor.first} ${inventor.last}`;
-                libody.innerHTML = `${inventor.year} - ${inventor.passed}`;
-                li.appendChild(lihead);
-                li.appendChild(libody);
-                inventorList.appendChild(li);
-            });
+            inventors = JSON.parse(this.responseText);
+            renderInventorList(inventors);
         }
     };
-    xhttp.open("GET", "https://res.cloudinary.com/dzsmdyknz/raw/upload/v1540349778/GitHub/Javascript30/day-4/apis/inventors.json", true);
-    xhttp.send();
+    inventorsHttp.open("GET", "https://res.cloudinary.com/dzsmdyknz/raw/upload/v1540540687/GitHub/Javascript30/day-4/apis/inventors.json", true);
+    inventorsHttp.send();
     
-    axios.get('https://res.cloudinary.com/dzsmdyknz/raw/upload/v1540364041/GitHub/Javascript30/day-4/apis/people.json')
+    axios.get('https://res.cloudinary.com/dzsmdyknz/raw/upload/v1540540543/GitHub/Javascript30/day-4/apis/people.json')
       .then(function (response) {
-          const people = response.data.people;
-          console.log(people);
-          people.map((name)=>{
-            const li = document.createElement('li');
-            const lihead = document.createElement('h5');
-            const nameArr = name.split(', ');
-            const fullname = `${nameArr[1]} ${nameArr[0]}`;
-            lihead.innerHTML = fullname;
-            li.appendChild(lihead);
-            peopleList.appendChild(li);
-        });
-       
+          let peepArr = response.data;
+          people = peepArr.map((person)=>person.split(', '));
+          renderPeopleList(people);
       })
       .catch(function (error) {
         console.log(error);
@@ -140,33 +74,136 @@ function render(){
       });
 
       
-      const bhttp = new XMLHttpRequest();
-    bhttp.onreadystatechange = function() {
+    const boulevardsHttp = new XMLHttpRequest();
+    boulevardsHttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            const boulevards = JSON.parse(this.responseText);
-            console.log(boulevards.boulevards);
-            boulevards.boulevards.map((boulevard)=>{
-                const li = document.createElement('li');
-                const lihead = document.createElement('h5');
-                lihead.innerHTML = `${boulevard}`;
-                li.appendChild(lihead);
-                boulevardList.appendChild(li);
-            });
+            boulevards = JSON.parse(this.responseText);
+            renderBoulevardList(boulevards);
         }
     };
-    bhttp.open("GET", "https://res.cloudinary.com/dzsmdyknz/raw/upload/v1540456404/GitHub/Javascript30/day-4/apis/parisdeboulevard.json", true);
-    bhttp.send();
+    boulevardsHttp.open("GET", "https://res.cloudinary.com/dzsmdyknz/raw/upload/v1540540744/GitHub/Javascript30/day-4/apis/parisdeboulevard.json", true);
+    boulevardsHttp.send();
     //   
 }
 
-render();
+selectInventors.onchange = function(){
+    let newArr;
+    if(this.value == 'age'){        
+        newArr = Object.assign([], inventors.sort((prev, curr) => (prev.year - prev.passed) > (curr.year - curr.passed)? 1 : -1));
+        clearList(inventorList);
+        renderInventorList(newArr);
+        console.table(newArr);
+    } else if(this.value == 'name'){
+        function compare(a,b) {
+            if(`${a.first} ${a.last}` < `${b.first} ${b.last}`)
+              return -1;
+            if(`${a.first} ${a.last}` > `${b.first} ${b.last}`)
+              return 1;
+            return 0;
+          }
+        newArr = Object.assign([], inventors.sort(compare));
+        clearList(inventorList);
+        renderInventorList(newArr);
+        console.table(newArr);
+    } else if(this.value == 'born'){        
+        newArr = Object.assign([], inventors.sort((prev, curr) => prev.year > curr.year? 1 : -1));
+        clearList(inventorList);
+        renderInventorList(newArr);
+        console.table(newArr);
+    } else if(this.value == 'died'){        
+        newArr = Object.assign([], inventors.sort((prev, curr) => prev.passed > curr.passed? 1 : -1));
+        clearList(inventorList);
+        renderInventorList(newArr);
+        console.table(newArr);
+    }
+};
 
-// function sortInventors(category){
-//     inventors.sort((prev, curr) => prev.category > curr.category? 1 : -1);
+selectPeople.onchange = function(){
+    let newArr;
+    if(this.value == 'firstname'){        
+        newArr = Object.assign([], people.sort((a,b)=> a[1] < b[1] ? -1 : 1 ));
+        clearList(peopleList);
+        renderPeopleList(newArr);
+        console.table(newArr);
+    } else if(this.value == 'lastname'){
+        newArr = Object.assign([], people.sort((a,b)=> a[0] < b[0] ? -1 : 1 ));
+        clearList(peopleList);
+        renderPeopleList(newArr);
+        console.table(newArr);
+    } 
+};
+
+function handleInputChange(event){
+    let newArr;
+    console.log(event.target.value);
+    newArr = Object.assign([], boulevards.filter((word)=>word.includes(event.target.value)));
+    clearList(boulevardList);
+    renderBoulevardList(newArr);
+    console.table(newArr);
+};
+
+['click','change', 'keydown', 'paste', 'input', 'propertychange', 'keyup', 'blur',].forEach( evt => 
+    textboxFilter.addEventListener(evt, handleInputChange, false)
+);
+
+function clearList(arrlist){
+    while(arrlist.firstChild) {
+        arrlist.firstChild.remove();
+    }
+}
+
+function renderInventorList(arr){
+    arr.map((inventor)=>{
+        const li = document.createElement('li');
+        const lihead = document.createElement('h5');
+        const libody = document.createElement('p');
+        const lifoot = document.createElement('p');
+        const age = inventor.passed - inventor.year;
+        lihead.innerHTML = `${inventor.first} ${inventor.last}`;
+        libody.innerHTML = `${inventor.year} - ${inventor.passed}`;
+        lifoot.innerHTML = `Age: ${age}`
+        li.appendChild(lihead);
+        li.appendChild(libody);
+        li.appendChild(lifoot);
+        inventorList.appendChild(li);
+    });
+}
+
+function renderPeopleList(arr){
+    arr.map((person)=>{
+        const li = document.createElement('li');
+        const lihead = document.createElement('h5');
+        //const nameArr = person.split(', ');
+        const fullname = `${person[1]} ${person[0]}`;
+        lihead.innerHTML = fullname;
+        li.appendChild(lihead);
+        peopleList.appendChild(li);
+    });
+}
+
+function renderBoulevardList(arr){
+    arr.map((boulevard)=>{
+        const li = document.createElement('li');
+        const lihead = document.createElement('h5');
+        lihead.innerHTML = `${boulevard}`;
+        li.appendChild(lihead);
+        boulevardList.appendChild(li);
+    });
+}
+
+// function sortInventors(arr,event){
+//     // if(this.value == 'age'){
+//     //     arr.sort((prev, curr) => prev.year > curr.year? 1 : -1);
+//     // }
+//     console.log(`${arr} ${event.target.value}`);
 // }
 
-// function sortPeople(category){
-//     people.sort((a, b) => a.category > b.category? 1 : -1);
+// function sortPeople(category,arr){
+//     arr.sort((a, b) => a.category > b.category? 1 : -1);
+// }
+
+// function sortPeople(category,arr){
+//     arr.sort((a, b) => a.category > b.category? 1 : -1);
 // }
 
 // function filterInventors(category){

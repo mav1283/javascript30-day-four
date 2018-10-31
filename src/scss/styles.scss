@@ -66,6 +66,7 @@ body{
     padding: 1rem;
     header{
         text-align: center;
+        text-transform: uppercase;
         padding-bottom: 1rem;
     }
     .data{
@@ -90,6 +91,7 @@ body{
         .query{
             display: grid;
             grid-template-columns: 1fr;
+            grid-template-rows: auto 1fr;
         }
     }
 }
@@ -98,15 +100,28 @@ body{
     .query{
         .foot-title{
             padding: 1rem;
+            background: var(--midnight-blue);
+            text-transform: uppercase;
         }
         .selectinput{
             color: var(--trans-dark);
         }
         .query-content{
             display: grid;
+            grid-template-rows: auto 1fr;
             grid-gap: 0.5rem;
             padding: 1rem;
             border: var(--trans-dark-border);
+            .inputholder{                
+                padding: 0.5rem;
+                border: var(--trans-dark-border);
+                .textinput{
+                    padding: 0;
+                    margin: 0;
+                    border: 0;
+                    outline: none;
+                }
+            }
         }
     }
 }
@@ -114,20 +129,17 @@ body{
 .query{
     &:first-child{
         .foot-title{
-            background: var(--nephritis);
-            color: #fff;
+            color: var(--nephritis);
         }
     }
     &:nth-child(2){
         .foot-title{
-            background: var(--sunflower);
-            color: #000;
+            color: var(--sunflower);
         }
     }
     &:last-child{
         .foot-title{
-            background: var(--pumpkin);
-            color: #fff;
+            color: var(--pumpkin);
         }
     }
 }
@@ -182,6 +194,9 @@ body{
         *:first-child{
             border-bottom: var(--trans-dark-border);
         }
+        *:nth-child(2){
+            border-bottom: var(--trans-dark-border);
+        }
         *:last-child{
             border-bottom: none;
         }
@@ -199,9 +214,25 @@ body{
 
 @media screen and (min-width: 768px){
     .data{
-        grid-template-columns: auto 1fr 1fr;
+        grid-template-columns: repeat(2,1fr);
+        .datacontent{
+            &:first-child{
+                grid-column: 1 / -1;
+            }
+        }
     }
     .queries{
         grid-template-columns: repeat(3,1fr);
+    }
+}
+
+@media screen and (min-width: 1024px){
+    .data{
+        grid-template-columns: auto 1fr 1fr;
+        .datacontent{
+            &:first-child{
+                grid-column: 1;
+            }
+        }
     }
 }
