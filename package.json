@@ -41,7 +41,7 @@
   "dependencies": {
     "acorn": "^7.1.1",
     "axios": "^0.19.2",
-    "elliptic": "^6.5.3",
+    "browserify": "^16.5.1",
     "fstream": "^1.0.12",
     "lodash": "^4.17.19",
     "minimist": "^1.2.5",
