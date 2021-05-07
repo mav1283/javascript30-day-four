@@ -43,7 +43,7 @@
     "axios": "^0.19.2",
     "browserify": "^16.5.1",
     "fstream": "^1.0.12",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "mixin-deep": "^2.0.1",
     "querystringify": ">=2.0.0"
